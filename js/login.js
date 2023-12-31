@@ -1,9 +1,10 @@
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const username = document.querySelector("#username");
-const inputName=document.querySelector("#username")
-const SignUp = document.querySelector("#SignUp");
+const inputName = document.querySelector("#username")
+const SignUpButton = document.querySelector("#SignUp");
 const Signin = document.querySelector("#Signin");
+const welcomeMessage=document.querySelector('#welcom-text')
 let User;
 
 if (localStorage.getItem("user") == null) {
@@ -15,11 +16,10 @@ if (localStorage.getItem("user") == null) {
   console.log(User);
 }
 
-function Login() {
-  //
+function SignUp() {
   if (validateAllInput() && getUser() != true) {
     let user = {
-      name:inputName.value,
+      name: inputName.value,
       email: email.value,
       password: password.value,
     };
@@ -29,7 +29,7 @@ function Login() {
     console.log(User);
     localStorage.setItem("user", JSON.stringify(User));
 
-  }else {
+  } else {
     console.log('already exxsist')
   }
 
@@ -59,17 +59,24 @@ function getUser() {
 
 
 function validateEmail() {
-  var emptyinput=document.querySelector("#emptyinput");
-  console.log(emptyinput);
-  if(emptyinput.value==''){
-    emptyinput.classList.replace("d-none","d-block")
-  }
+  var emptyinput = document.querySelector("#emptyinput");
+  var invalidEmail = document.querySelector("#invalid-email");
   const emailPattern = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-  if (emailPattern.test(email.value)) {
+  //console.log(e);
+  if (email.value == '') {
+    emptyinput.classList.replace("d-none", "d-block")
+    invalidEmail.classList.replace("d-block", "d-none")
+    return false
+  }
+  else if (emailPattern.test(email.value)) {
     console.log("email is valid");
+    emptyinput.classList.replace("d-block", "d-none")
+    invalidEmail.classList.replace("d-block", "d-none")
     return true;
   } else {
     console.log("email is invalid");
+    emptyinput.classList.replace("d-block", "d-none")
+    invalidEmail.classList.replace("d-none", "d-block")
     return false;
   }
 }
@@ -89,3 +96,30 @@ function validatePassword() {
     return false;
   }
 }
+
+let user;
+function Login(){
+  for (let i = 0; i < User.length; i++) {
+    if (User[i].email == email.value && User[i].password==password.value) {
+      console.log("logged in");
+      console.log(User[i]);
+      user=User[i].name
+      console.log(user)
+      console.log(welcomeMessage);
+      welcome();
+      return true;
+    }
+  }
+  console.log("incorrect email or password");
+  return false;
+}
+
+function welcome() {
+  window.location.href('welcom.html')
+
+  welcomeMessage.textHTML=`Welcome${user}`
+}
+
+
+
+
