@@ -4,7 +4,7 @@ const username = document.querySelector("#username");
 const inputName = document.querySelector("#username")
 const SignUpButton = document.querySelector("#SignUp");
 const Signin = document.querySelector("#Signin");
-const welcomeMessage=document.querySelector('#welcom-text')
+const welcomeMessage = document.querySelector('#welcom-text')
 let User;
 
 if (localStorage.getItem("user") == null) {
@@ -98,27 +98,29 @@ function validatePassword() {
 }
 
 let user;
-function Login(){
+function Login() {
+  const invalidLogin= document.querySelector(".invalid-login")
+//console.log(invalidLogin)
   for (let i = 0; i < User.length; i++) {
-    if (User[i].email == email.value && User[i].password==password.value) {
+    if (User[i].email == email.value && User[i].password == password.value) {
       console.log("logged in");
       console.log(User[i]);
-      user=User[i].name
+      user = User[i].name
       console.log(user)
-      console.log(welcomeMessage);
-      welcome();
+    //  console.log(welcomeMessage);
+      //welcome();
       return true;
     }
   }
   console.log("incorrect email or password");
+  invalidLogin.classList.replace('d-none','d-block')
   return false;
 }
 
-function welcome() {
-  window.location.href('welcom.html')
-
-  welcomeMessage.textHTML=`Welcome${user}`
-}
+/*function welcome() {
+  window.location('welcom.html')
+  welcomeMessage.innerHTML = `Welcome${user}`
+}*/
 
 
 
