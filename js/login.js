@@ -28,6 +28,7 @@ function SignUp() {
     User.push(user);
     console.log(User);
     localStorage.setItem("user", JSON.stringify(User));
+    window.location.href = "index.html";
   } else {
     console.log("already exsist");
   }
@@ -50,6 +51,7 @@ function getUser() {
     }
   }
   console.log("notfound");
+  
   return false;
 }
 
@@ -115,4 +117,4 @@ function Login() {
   return false;
 }
 
-//welcomeMessage.innerHTML = `Welcome ${usersesion}`;
+welcomeMessage.innerHTML = `Welcome ${usersesion}`;
