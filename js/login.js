@@ -29,7 +29,7 @@ function SignUp() {
     console.log(User);
     localStorage.setItem("user", JSON.stringify(User));
   } else {
-    console.log("already exxsist");
+    console.log("already exsist");
   }
 }
 
@@ -57,7 +57,6 @@ function validateEmail() {
   var emptyinput = document.querySelector("#emptyinput");
   var invalidEmail = document.querySelector("#invalid-email");
   const emailPattern = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-  //console.log(e);
   if (email.value == "") {
     emptyinput.classList.replace("d-none", "d-block");
     invalidEmail.classList.replace("d-block", "d-none");
@@ -76,17 +75,21 @@ function validateEmail() {
 }
 
 function validatePassword() {
+  const emptyPassword = document.querySelector('#empty-password')
+  const invalidPassword = document.querySelector('#invalid-password')
   const passwordPattern =
     /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/gm;
-  if (passwordPattern.test(password.value)) {
+  if (password.value == "") {
+    emptyPassword.classList.replace("d-none", "d-block");
+    console.log('password is required')
+    return true
+  }
+  else if (passwordPattern.test(password.value)) {
     console.log("passward is valid");
-    //alert1.classList.add("is-valid");
-    //alert2.classList.add("is-valid'");
     return true;
   } else {
     console.log("passward is invalid");
-    //alert1.classList.replace("d-none", "d-block");
-    //alert2.classList.replace("d-none", "d-block");
+    invalidPassword.classList.replace("d-none", "d-block");
     return false;
   }
 }
@@ -95,7 +98,6 @@ var usersesion = JSON.parse(localStorage.getItem("username"));
 
 function Login() {
   const invalidLogin = document.querySelector(".invalid-login");
-  //console.log(invalidLogin)
   for (let i = 0; i < User.length; i++) {
     if (User[i].email == email.value && User[i].password == password.value) {
       console.log("logged in");
@@ -105,8 +107,6 @@ function Login() {
 
       localStorage.setItem("username", JSON.stringify(usersesion));
       window.location.href = "welcom.html";
-      //  console.log(welcomeMessage);
-      //welcome();
       return true;
     }
   }
@@ -115,4 +115,4 @@ function Login() {
   return false;
 }
 
-welcomeMessage.innerHTML = `Welcome ${usersesion}`;
+//welcomeMessage.innerHTML = `Welcome ${usersesion}`;
