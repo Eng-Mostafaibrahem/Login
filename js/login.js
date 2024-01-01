@@ -1,10 +1,10 @@
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const username = document.querySelector("#username");
-const inputName = document.querySelector("#username")
+const inputName = document.querySelector("#username");
 const SignUpButton = document.querySelector("#SignUp");
 const Signin = document.querySelector("#Signin");
-const welcomeMessage = document.querySelector('#welcom-text')
+const welcomeMessage = document.querySelector(".welcom-text");
 let User;
 
 if (localStorage.getItem("user") == null) {
@@ -28,12 +28,9 @@ function SignUp() {
     User.push(user);
     console.log(User);
     localStorage.setItem("user", JSON.stringify(User));
-
   } else {
-    console.log('already exxsist')
+    console.log("already exxsist");
   }
-
-
 }
 
 function validateAllInput() {
@@ -56,27 +53,24 @@ function getUser() {
   return false;
 }
 
-
-
 function validateEmail() {
   var emptyinput = document.querySelector("#emptyinput");
   var invalidEmail = document.querySelector("#invalid-email");
   const emailPattern = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
   //console.log(e);
-  if (email.value == '') {
-    emptyinput.classList.replace("d-none", "d-block")
-    invalidEmail.classList.replace("d-block", "d-none")
-    return false
-  }
-  else if (emailPattern.test(email.value)) {
+  if (email.value == "") {
+    emptyinput.classList.replace("d-none", "d-block");
+    invalidEmail.classList.replace("d-block", "d-none");
+    return false;
+  } else if (emailPattern.test(email.value)) {
     console.log("email is valid");
-    emptyinput.classList.replace("d-block", "d-none")
-    invalidEmail.classList.replace("d-block", "d-none")
+    emptyinput.classList.replace("d-block", "d-none");
+    invalidEmail.classList.replace("d-block", "d-none");
     return true;
   } else {
     console.log("email is invalid");
-    emptyinput.classList.replace("d-block", "d-none")
-    invalidEmail.classList.replace("d-none", "d-block")
+    emptyinput.classList.replace("d-block", "d-none");
+    invalidEmail.classList.replace("d-none", "d-block");
     return false;
   }
 }
@@ -97,31 +91,28 @@ function validatePassword() {
   }
 }
 
-let user;
+var usersesion = JSON.parse(localStorage.getItem("username"));
+
 function Login() {
-  const invalidLogin= document.querySelector(".invalid-login")
-//console.log(invalidLogin)
+  const invalidLogin = document.querySelector(".invalid-login");
+  //console.log(invalidLogin)
   for (let i = 0; i < User.length; i++) {
     if (User[i].email == email.value && User[i].password == password.value) {
       console.log("logged in");
       console.log(User[i]);
-      user = User[i].name
-      console.log(user)
-    //  console.log(welcomeMessage);
+      usersesion = User[i].name;
+      console.log(usersesion);
+
+      localStorage.setItem("username", JSON.stringify(usersesion));
+      window.location.href = "welcom.html";
+      //  console.log(welcomeMessage);
       //welcome();
       return true;
     }
   }
   console.log("incorrect email or password");
-  invalidLogin.classList.replace('d-none','d-block')
+  invalidLogin.classList.replace("d-none", "d-block");
   return false;
 }
 
-/*function welcome() {
-  window.location('welcom.html')
-  welcomeMessage.innerHTML = `Welcome${user}`
-}*/
-
-
-
-
+welcomeMessage.innerHTML = `Welcome ${usersesion}`;
